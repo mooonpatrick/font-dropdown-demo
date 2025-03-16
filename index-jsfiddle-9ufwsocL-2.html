@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>test</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Emblema+One&display=swap');
+
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.custom-dropdown .selected {
+    font-family: Arial, sans-serif;
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 10;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-options li {
+    padding: 10px;
+    list-style: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-options li:hover {
+    background-color: #f0f0f0;
+}
+
+.custom-dropdown.active .dropdown-options {
+    display: block;
+}
+
+  </style>
+
+  
+</head>
+<body>
+  <div class="custom-dropdown">
+    <div class="selected">Please Select</div>
+    <ul class="dropdown-options">
+        <li data-value="Arial" style="font-family: Arial;">Arial</li>
+        <li data-value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</li>
+        <li data-value="Calibri" style="font-family: Calibri;">Calibri</li>
+        <li data-value="New Rocker" style="font-family: 'New Rocker', cursive;">New Rocker</li>
+        <li data-value="Rock Salt" style="font-family: 'Rock Salt', cursive;">Rock Salt</li>
+        <li data-value="Emblema One" style="font-family: 'Emblema One', cursive;">Emblema One</li>
+    </ul>
+</div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const dropdown = document.querySelector('.custom-dropdown');
+    const selected = dropdown.querySelector('.selected');
+    const options = dropdown.querySelectorAll('.dropdown-options li');
+
+    // Open/close dropdown on click
+    dropdown.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+    });
+
+    // Handle option selection
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            selected.textContent = option.textContent;
+            selected.style.fontFamily = option.style.fontFamily;
+            dropdown.classList.remove('active');
+
+            // (Optional) Pass value to hidden field if needed:
+            const hiddenField = document.getElementById('input_79'); // Adjust the ID
+            if (hiddenField) {
+                hiddenField.value = option.dataset.value;
+            }
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+});
+
+  </script>
+</body>
+</html>
